@@ -1,67 +1,76 @@
-from betterWindow import BetterWindow
+from Windows.betterWindowBuilder import BetterWindowBuilder
 from threading import Thread
 import time
 
-window = BetterWindow(0x0020A12)
 
-def tpAction():
-    window.sendChar("1")
-    time.sleep(0.3)
-    window.right_click_at(955, 538)
-    time.sleep(0.5)
-    window.sendChar("2")
-    time.sleep(0.3)
-    window.right_click_at(955, 538)
-    time.sleep(0.3)
+windowBuilder = BetterWindowBuilder()
+windowBuilder.setWindowTitle("Minecraft 1.7.10")
+window = windowBuilder.build()
 
-def script():
-    count = 1
+def hitAction(slot):
+    print("hitAction")
+    time.sleep(0.1)
+    window.sendChar(str(slot))
+    time.sleep(0.1)
+    window.left_click_at(955, 538)
+    time.sleep(0.1)
+
+def script(count):
+    print("script")
+    hitAction(8)
     window.sendChar("9")
-    Thread(target=window.holdKey, args=("space", count * 2 + 1,)).start()
     Thread(target=window.holdKey, args=("shift", count * 2 + 1,)).start()
     for i in range(count):
         time.sleep(0.2)
         window.right_click_at(955, 538)
-    time.sleep(0.1)
-    tpAction()
-    for j in range(5):
-        time.sleep(0.7)
-        window.sendChar(str(j + 3))
-        time.sleep(0.2)
-        window.left_click_at(955, 538)
+    time.sleep(1)
+    window.right_click_at(955, 538)
+    time.sleep(1)
+    window.right_click_at(955, 538)
+    for j in range(8):
+        hitAction(j + 1)
     time.sleep(0.1)
     time.sleep(1)
 
+def dropSoul():
+    print("dropSoul")
+    window.holdKey("9", 1)
+    time.sleep(0.1)
+    window.holdKey("q", 1)
+    time.sleep(0.1)
+    window.fastPressKey("9")
+    time.sleep(0.1)
+    window.fastPressKey("q")
+    time.sleep(0.1)
+    window.holdKey("9", 1)
+    time.sleep(0.1)
+    window.holdKey("q", 1)
+    time.sleep(0.1)
+
 def superScript():
-    window.sendChar("8")
+    print("superScript")
+    count = 3
+    time.sleep(0.2)
+    window.right_click_at(955, 538)
     time.sleep(1)
+    for i in range(int(12/count)):
+        script(count)
+        color = window.get_pixel_color_from_window(770, 550)
+        if color == (198, 198, 198):
+            window.holdKey("esc", 1)
+            break
+        time.sleep(5)
+        hitAction(8)
     window.right_click_at(955, 538)
-    time.sleep(10)
-    window.sendChar("2")
-    time.sleep(0.3)
+    time.sleep(0.5)
+    window.holdKey("a", 4)
     window.right_click_at(955, 538)
-    time.sleep(0.3)
-    window.sendChar("7")
-    time.sleep(0.3)
-    window.left_click_at(955, 538)
-    time.sleep(0.3)
-    for i in range(4):
-        time.sleep(1)
-        for j in range(3):
-            script()
-            time.sleep(1)
-    window.sendChar("9")
-    time.sleep(0.3)
-    window.left_click_at(955, 538)
-    time.sleep(0.3)
-    window.sendChar("q")
-    time.sleep(0.3)
-    window.sendChar("q")
-    time.sleep(0.3)
-    window.sendChar("q")
+    dropSoul()
+    time.sleep(2)
+    time.sleep(2)
+
 
 for i in range(100):
     superScript()
-    time.sleep(5)
 
 

@@ -1,10 +1,10 @@
-from window import Window
+from Windows.window import Window
 import time
 
 class BetterWindow(Window):
 
-    def __init__(self, window_id):
-        super().__init__(window_id)
+    def __init__(self, hwnd):
+        super().__init__(hwnd)
 
     def holdKey(self, key, tme):
         """The time parameter represents 100 milliseconds per unit."""
@@ -13,6 +13,10 @@ class BetterWindow(Window):
             time.sleep(0.1)
         self.key_up(key)
 
+    def holdLeftClick(self, tme, x, y):
+        for i in range(tme):
+            self.left_click_at(x, y)
+            time.sleep(0.1)
     def writeText(self, text:str):
         for chr in text:
             self.sendChar(chr)
@@ -20,8 +24,10 @@ class BetterWindow(Window):
 
     def fastPressKey(self, char: str):
         l_param = (self._scancodes[char.upper()] << 16) | 1
-        self._user32.SendMessageA(self._window_id,
+        self._user32.SendMessageA(self._hwnd,
                                   self._WM_KEYDOWN,
                                   self._scancodes[char.upper()],
                                   l_param
                                   )
+
+

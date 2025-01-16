@@ -1,11 +1,8 @@
-import threading
-
-from window import Window
+from Windows.window import Window
 from threading import Thread
 import time
 
-
-window = Window(0x0C81260)
+window = Window(0x00505DE)
 
 def holdShift(shift_cd):
     for i in range(shift_cd * 10 + 5):
@@ -21,7 +18,7 @@ def script():
     for i in range(8):
         window.right_click_at(955, 538)
         time.sleep(shift_cd/8)
-    time.sleep(20)
+    time.sleep(5)
     for i in range(8):
         time.sleep(0.1)
         window.sendChar(str(i + 2))
@@ -31,5 +28,5 @@ def script():
 
 for i in range(300):
     script()
-    time.sleep(20)
+    time.sleep(12)
 
