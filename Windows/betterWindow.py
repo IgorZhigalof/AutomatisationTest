@@ -18,9 +18,7 @@ class BetterWindow(Window):
             self.left_click_at(x, y)
             time.sleep(0.1)
     def writeText(self, text:str):
-        for chr in text:
-            self.sendChar(chr)
-            time.sleep(0.2)
+        self.writeText(text, 0.2)
 
     def fastPressKey(self, char: str):
         l_param = (self._scancodes[char.upper()] << 16) | 1
@@ -30,4 +28,8 @@ class BetterWindow(Window):
                                   l_param
                                   )
 
+    def writeText(self, text: str, delay: float):
+        for chr in text:
+            self.sendChar(chr)
+            time.sleep(delay)
 

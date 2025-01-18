@@ -1,8 +1,10 @@
-from Windows.window import Window
+from Windows.betterWindowBuilder import BetterWindowBuilder
 from threading import Thread
 import time
 
-window = Window(0x00505DE)
+windowBuilder = BetterWindowBuilder()
+windowBuilder.setWindowTitle("Minecraft 1.7.10")
+window = windowBuilder.build()
 
 def holdShift(shift_cd):
     for i in range(shift_cd * 10 + 5):

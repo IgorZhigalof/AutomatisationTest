@@ -24,7 +24,7 @@ def script(count):
         time.sleep(0.2)
         window.right_click_at(955, 538)
     time.sleep(1)
-    window.right_click_at(955, 538)
+    tpAction()
     time.sleep(1)
     window.right_click_at(955, 538)
     for j in range(8):
@@ -47,10 +47,24 @@ def dropSoul():
     window.holdKey("q", 1)
     time.sleep(0.1)
 
+
+def tpAction():
+    window.fastPressKey("T")
+    time.sleep(0.1)
+    window.writeText("/home", 0.1)
+    time.sleep(0.1)
+    window.fastPressKey("enter")
+    time.sleep(0.1)
+    window.writeText("/tps", 0.1)
+    window.fastPressKey("enter")
+
+
 def superScript():
     print("superScript")
     count = 3
     time.sleep(0.2)
+    tpAction()
+    time.sleep(1)
     window.right_click_at(955, 538)
     time.sleep(1)
     for i in range(int(12/count)):
@@ -61,7 +75,7 @@ def superScript():
             break
         time.sleep(5)
         hitAction(8)
-    window.right_click_at(955, 538)
+    tpAction()
     time.sleep(0.5)
     window.holdKey("a", 4)
     window.right_click_at(955, 538)
